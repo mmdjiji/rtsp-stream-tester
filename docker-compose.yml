@@ -1,0 +1,27 @@
+version: "3"
+services:
+  easydarwin:
+    image: mmdjiji/easydarwin
+    ports:
+      - 8554:8554
+      - 10008:10008
+    networks:
+      - rtsp
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  ffmepg-rtsp-pusher:
+    image: mmdjiji/ffmpeg-rtsp-pusher
+    networks:
+      - rtsp
+    depends_on:
+      - easydarwin
+    environment:
+      RTSP_SERVER: easydarwin
+    deploy:
+      restart_policy:
+        condition: always
+
+networks:
+  rtsp:

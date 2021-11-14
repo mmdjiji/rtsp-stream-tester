@@ -1,0 +1,1 @@
+docker build . -t mmdjiji/ffmpeg-rtsp-pusher
